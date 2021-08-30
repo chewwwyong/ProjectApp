@@ -72,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void data_processing(Article item, int data_size){
-        ArrayList<String> timestamp = new ArrayList<>();
-        ArrayList<String> key = new ArrayList<>();
+        ArrayList<String> Now = new ArrayList<>();
+        ArrayList<String> TimeStamp = new ArrayList<>();
         ArrayList<String> v_id = new ArrayList<>();
         ArrayList<String> Speed = new ArrayList<>();
         ArrayList<String> Speed_State = new ArrayList<>();
@@ -88,32 +88,38 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> Road_State = new ArrayList<>();
 
         String result = item.toString();
-        //     timestamp: 2021/08/30 11:14:20, key: 101, column: Vehicle ID:highwayCD4.0, value: 3
-        //     timestamp: 2021/08/30 11:14:55, key: 1017, column: Vehicle ID:highwayAB1.24, value: 9
+        //Now: 2021/08/30 16:49:04, timestamp: 16:49:04, value: v.id: highwayDA5.0,
+        // Speed: 0.0 km/h (0.00m/s), Speed_State: G,
+        // Tire_Pressure: 33 psi, Tire_Pressure_State: G,
+        // Change_Lane_State: R, Driving_State: Normal driving,
+        // ACC_State: G,
+        // LDW_State: Left: G Right: G,
+        // BSM_State: Left: G Right: G Center: G,
+        // Lane_State: G, Road_State: G
 
         String[] tmpstr = result.split(",");
         for(int i=0;i<tmpstr.length;i++){
 
             //Toast.makeText(MainActivity.this, tmpstr[i].toString(), Toast.LENGTH_SHORT).show();
 
-            // 抓timestamp
-            if( tmpstr[i].toString().startsWith("timestamp: ")){
-                // timestamp: 2021/08/30 11:14:55
+            // 抓Now
+            if( tmpstr[i].toString().startsWith("Now: ")){
+                // Now: 2021/08/30 11:14:55
                 String[] str_split = tmpstr[i].split(": ");
-                // str_split[0] = timestamp
+                // str_split[0] = Now
                 // str_split[1] = 2021/08/30 11:14:55
-                timestamp.add(str_split[1]);
-                //Toast.makeText(MainActivity.this, timestamp.get(0), Toast.LENGTH_SHORT).show();
+                Now.add(str_split[1]);
+                //Toast.makeText(MainActivity.this, Now.get(0), Toast.LENGTH_SHORT).show();
             }
 
-            // 抓key
-            else if( tmpstr[i].toString().startsWith(" key: ")){
-                // key: 1017
+            // 抓TimeStamp
+            else if( tmpstr[i].toString().startsWith(" timestamp: ")){
+                // TimeStamp: 1017
                 String[] str_split = tmpstr[i].split(": ");
-                // str_split[0] = key
+                // str_split[0] = TimeStamp
                 // str_split[1] = 1017
-                key.add(str_split[1]);
-                //Toast.makeText(MainActivity.this, key.get(0), Toast.LENGTH_SHORT).show();
+                TimeStamp.add(str_split[1]);
+                //Toast.makeText(MainActivity.this, TimeStamp.get(0), Toast.LENGTH_SHORT).show();
             }
 
             // 抓v_id
@@ -240,8 +246,8 @@ public class MainActivity extends AppCompatActivity {
 
         // 一筆一筆資料抓
         for(int i=0;i<v_id.size();i++){
-            txv_showData.setText("TimeStamp： " + timestamp.get(i) +
-                            "\nkey： " + key.get(i) +
+            txv_showData.setText("Now： " + Now.get(i) +
+                            "\nTimeStamp： " + TimeStamp.get(i) +
                             "\nv_id： " + v_id.get(i) +
                             "\nSpeed： " + Speed.get(i) +
                             "\nSpeed_State： " + Speed_State.get(i) +
@@ -259,12 +265,12 @@ public class MainActivity extends AppCompatActivity {
             if(Speed_State.get(i).equals("R") ||
                     Tire_Pressure_State.get(i).equals("R") ||
                     Change_Lane_State.get(i).equals("R")||
-                    Driving_State.get(i).equals("R") ||
-                    ACC_State.get(i).equals("R") ||
-                    LDW_State.get(i).equals("R") ||
-                    BSM_State.get(i).equals("R") ||
-                    Lane_State.get(i).equals("R") ||
-                    Road_State.get(i).equals("R")){
+                    Driving_State.get(i).equals("R")){
+                    //ACC_State.get(i).equals("R") ||
+                    //LDW_State.get(i).equals("R") ||
+                    //BSM_State.get(i).equals("R") ||
+                    //Lane_State.get(i).equals("R") ||
+                    //Road_State.get(i).equals("R")){
                 txv_warningMsg.setText("Warning!!");
                 txv_warningMsg.setTextColor(Color.RED);
             }
