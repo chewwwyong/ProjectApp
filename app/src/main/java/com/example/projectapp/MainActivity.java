@@ -86,6 +86,10 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> BSM_State = new ArrayList<>();
         ArrayList<String> Lane_State = new ArrayList<>();
         ArrayList<String> Road_State = new ArrayList<>();
+        ArrayList<String> Driving_Score = new ArrayList<>();
+        ArrayList<String> Driving_Grade = new ArrayList<>();
+
+
 
         String result = item.toString();
         //Now: 2021/08/30 16:49:04, timestamp: 16:49:04, value: v.id: highwayDA5.0,
@@ -242,6 +246,26 @@ public class MainActivity extends AppCompatActivity {
                 Road_State.add(str_split[1]);
                 //Toast.makeText(MainActivity.this, Road_State.get(0), Toast.LENGTH_SHORT).show();
             }
+
+            // Driving_Score
+            else if( tmpstr[i].toString().startsWith(" Driving_Score: ")){
+                //  Driving_Score: 100 point
+                String[] str_split = tmpstr[i].split(": ");
+                // str_split[0] = Driving_Score
+                // str_split[1] = G
+                Driving_Score.add(str_split[1]);
+                //Toast.makeText(MainActivity.this, Driving_Score.get(0), Toast.LENGTH_SHORT).show();
+            }
+
+            // Driving_Grade
+            else if( tmpstr[i].toString().startsWith(" Driving_Grade: ")){
+                // Driving_Grade: A
+                String[] str_split = tmpstr[i].split(": ");
+                // str_split[0] = Driving_Grade
+                // str_split[1] = G
+                Driving_Grade.add(str_split[1]);
+                //Toast.makeText(MainActivity.this, Driving_Grade.get(0), Toast.LENGTH_SHORT).show();
+            }
         }
 
         // 一筆一筆資料抓
@@ -255,11 +279,15 @@ public class MainActivity extends AppCompatActivity {
                             "\nTire_Pressure_State： " + Tire_Pressure_State.get(i) +
                             "\nChange_Lane_State： " + Change_Lane_State.get(i) +
                             "\nDriving_State： " + Driving_State.get(i) +
-                            "\nACC_State： " + ACC_State.get(i) +
-                            "\nLDW_State： " + LDW_State.get(i) +
-                            "\nBSM_State： " + BSM_State.get(i) +
-                            "\nLane_State： " + Lane_State.get(i) +
-                            "\nRoad_State： " + Road_State.get(i) + "\n");
+                            "\nDriving_Score： " + Driving_Score.get(i) +
+                            "\nDriving_Grade： " + Driving_Grade.get(i)
+
+                            //"\nACC_State： " + ACC_State.get(i) +
+                            //"\nLDW_State： " + LDW_State.get(i) +
+                            //"\nBSM_State： " + BSM_State.get(i) +
+                            //"\nLane_State： " + Lane_State.get(i) +
+                            //"\nRoad_State： " + Road_State.get(i) + "\n"
+            );
 
             // 只要有任意State有R 那就顯示Warning
             if(Speed_State.get(i).equals("R") ||
